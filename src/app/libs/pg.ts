@@ -1,8 +1,8 @@
 import env from '@app/env.js'
-import { Pool } from 'pg'
+import { Client } from 'pg'
 
-export async function connectToPgPool(): Promise<Pool> {
-  const pool = new Pool({
+export async function connectToPostgres(): Promise<Client> {
+  const client = new Client({
     host: env.PG_HOST,
     port: env.PG_PORT,
     user: env.PG_USER,
@@ -10,5 +10,7 @@ export async function connectToPgPool(): Promise<Pool> {
     database: env.PG_DB,
   })
 
-  return pool
+  await client.connect()
+
+  return client
 }
