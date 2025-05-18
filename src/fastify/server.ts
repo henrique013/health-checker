@@ -4,17 +4,13 @@ import env from '@app/env.js'
 export async function up() {
   const fastify = createFastifyInstance()
 
-  setupDecorators(fastify)
-
-  await setupHooks(fastify)
-
   await setupRoutes(fastify)
 
   await listen(fastify)
 }
 
 function createFastifyInstance(): FastifyInstance {
-  const level = env.NODE_ENV === 'development' ? 'debug' : 'info'
+  const level = env.API_DEBUG ? 'debug' : 'info'
 
   const fastify: FastifyInstance = Fastify({
     logger: {
@@ -34,30 +30,8 @@ function createFastifyInstance(): FastifyInstance {
   return fastify
 }
 
-function setupDecorators(fastify: FastifyInstance) {
-  // server decorators
-  fastify.decorate('pgPool')
-  fastify.decorate('redis')
-
-  // request decorators
-  fastify.decorateRequest('pgPoolClient')
-  fastify.decorateRequest('redis')
-}
-
-async function setupHooks(fastify: FastifyInstance) {
-  // on ready
-  fastify.addHook('onReady', (await import('@fastify/hooks/on-ready/set-server-decorators.js')).hook)
-
-  // on request
-  fastify.addHook('onRequest', (await import('@fastify/hooks/on-request/set-request-decorators.js')).hook)
-
-  // on response
-  fastify.addHook('onResponse', (await import('@fastify/hooks/on-response/release-pg-connection.js')).hook)
-}
-
 async function setupRoutes(fastify: FastifyInstance) {
   fastify.route((await import('@fastify/routes/index.get.js')).routeOpt)
-  fastify.route((await import('@fastify/routes/health/index.get.js')).routeOpt)
 }
 
 async function listen(fastify: FastifyInstance) {

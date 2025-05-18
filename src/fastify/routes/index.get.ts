@@ -9,9 +9,9 @@ export const routeOpt: RouteOptions = {
       200: {
         type: 'object',
         properties: {
-          message: { type: 'string' },
+          status: { type: 'string' },
         },
-        required: ['message'],
+        required: ['status'],
       },
     },
   },
