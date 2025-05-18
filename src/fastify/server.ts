@@ -32,6 +32,7 @@ function createFastifyInstance(): FastifyInstance {
 
 async function setupRoutes(fastify: FastifyInstance) {
   fastify.route((await import('@fastify/routes/index.get.js')).routeOpt)
+  fastify.route((await import('@fastify/routes/redis.get.js')).routeOpt)
 }
 
 async function listen(fastify: FastifyInstance) {

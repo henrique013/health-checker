@@ -9,9 +9,10 @@ export const routeOpt: RouteOptions = {
       200: {
         type: 'object',
         properties: {
-          status: { type: 'string' },
+          status: { type: 'string', enum: ['OK', 'ERROR'] },
+          message: { type: 'string' },
         },
-        required: ['status'],
+        required: ['status', 'message'],
       },
     },
   },
