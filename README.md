@@ -1,6 +1,6 @@
-# 🚀 Template de API Fastify
+# 🚀 Health Checker API
 
-Este é um template básico para uma API Fastify com TypeScript, configurado para desenvolvimento usando Docker.
+API de saúde para verificar a integridade do sistema.
 
 ## 📋 Pré-requisitos
 
@@ -11,8 +11,8 @@ Este é um template básico para uma API Fastify com TypeScript, configurado par
 1. Clone o repositório e navegue até o diretório do projeto:
 
    ```bash
-   git clone git@github.com:henrique013/tpl-fastify.git
-   cd tpl-fastify
+   git clone git@github.com:henrique013/health-checker.git
+   cd health-checker
    ```
 
 2. Configure as variáveis de ambiente:
@@ -41,13 +41,6 @@ Este é um template básico para uma API Fastify com TypeScript, configurado par
 
 ## 🌐 Endpoints
 
-- `GET /`: Endpoint raiz
-  - Resposta:
-    - `message`: string
-- `GET /system/health`: Endpoint de verificação de saúde
-  - Parâmetros de Consulta:
-    - `uptime` (opcional): boolean - Inclui tempo de atividade na resposta
-  - Resposta:
-    - `message`: string
-    - `timestamp`: string
-    - `uptime`: number (opcional)
+- `GET /`: Verificação de saúde da própria API
+- `GET /redis`: Verificação de saúde do banco de dados Redis
+- `GET /postgres`: Verificação de saúde do banco de dados PostgreSQL
