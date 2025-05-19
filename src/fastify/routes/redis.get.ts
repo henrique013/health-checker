@@ -20,6 +20,7 @@ export const routeOpt: RouteOptions = {
   },
   handler: async function (_request, reply) {
     let json: ApiResponse
+    let status = 200
 
     try {
       const redis = connectToRedis()
@@ -29,8 +30,9 @@ export const routeOpt: RouteOptions = {
         status: 'ERROR',
         message: error instanceof Error ? error.message : String(error),
       }
+      status = 500
     }
 
-    reply.send(json)
+    reply.status(status).send(json)
   },
 }
